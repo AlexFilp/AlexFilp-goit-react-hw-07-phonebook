@@ -19,6 +19,14 @@ const initialState = {
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState: initialState,
+  reducers: {
+    deleteLocalContact(state, action) {
+      const index = state.contactsList.findIndex(
+        contact => contact.id === action.payload
+      );
+      state.contactsList.splice(index, 1);
+    },
+  },
   extraReducers: {
     [fetchContacts.pending]: handlePending,
     [fetchContacts.fulfilled](state, action) {
@@ -49,7 +57,7 @@ const contactsSlice = createSlice({
 
 export const contactsReducer = contactsSlice.reducer;
 
-// export const { addContact, deleteContact } = contactsSlice.actions;
+export const { deleteLocalContact } = contactsSlice.actions;
 
 // reducers: {
 //   addContact: {
