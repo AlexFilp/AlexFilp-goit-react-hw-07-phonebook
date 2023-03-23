@@ -1,23 +1,23 @@
 import { ContactForm, Label, Input, Span, Btn } from './Form.styled';
 import { useDispatch } from 'react-redux';
-import { addContact } from 'redux/contactsSlice';
+import { addContact } from 'redux/operations';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
-import { getContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/selectors';
 
 export const Form = () => {
   const dispatch = useDispatch();
-  const allContacts = useSelector(getContacts);
+  const allContacts = useSelector(selectContacts);
 
   const handleSubmit = evt => {
     evt.preventDefault();
     const form = evt.target;
-    const nameValue = form.elements.name.value;
-    const numberValue = form.elements.number.value;
-    if (allContacts.find(contact => contact.name === nameValue)) {
-      return toast.error(`${nameValue} is already in contacts!`);
+    const name = form.elements.name.value;
+    const phone = form.elements.number.value;
+    if (allContacts.find(contact => contact.name === name)) {
+      return toast.error(`${name} is already in contacts!`);
     }
-    dispatch(addContact(nameValue, numberValue));
+    dispatch(addContact({ name, phone }));
     form.reset();
   };
 

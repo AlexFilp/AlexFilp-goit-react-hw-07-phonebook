@@ -1,26 +1,23 @@
 import { GlobalStyle } from '../GlobalStyle';
+import { ContactsTitle, Container, FormTitle } from './App.styled';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { Form } from '../Form/Form';
 import { Contacts } from '../Contacts/Contacts';
 import { Filter } from '../Filter/Filter';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { ContactsTitle, Container, FormTitle } from './App.styled';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchContacts } from 'redux/operations';
+import { selectIsLoading, selectError } from 'redux/selectors';
 
 export const App = () => {
-  // const filter = useSelector(getFilter);
-  // const allContacts = useSelector(getContacts);
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectIsLoading);
+  const error = useSelector(selectError);
 
-  // console.log(allContacts);
-  // console.log(filter);
-
-  // const getFilteredContacts = () => {
-  //   const normilezedFilter = filter.toLowerCase();
-  //   return allContacts.filter(contact =>
-  //     contact.name.toLowerCase().includes(normilezedFilter)
-  //   );
-  // };
-
-  // const visibleContacts = getFilteredContacts();
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
     <Container>
@@ -28,6 +25,7 @@ export const App = () => {
       <Form />
       <ContactsTitle>Contacts</ContactsTitle>
       <Filter />
+      {isLoading && !error && <h3>REQUEST IN PROGRESS...</h3>}
       <Contacts />
       <GlobalStyle />
       <ToastContainer autoClose={2000} limit={3} position="top-center" />

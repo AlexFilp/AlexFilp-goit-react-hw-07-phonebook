@@ -7,7 +7,6 @@ export const Filter = () => {
 
   const handleFilterChange = evt => {
     const filterValue = evt.target.value;
-    console.log(filterValue);
     dispatch(filterInput(filterValue));
   };
 
