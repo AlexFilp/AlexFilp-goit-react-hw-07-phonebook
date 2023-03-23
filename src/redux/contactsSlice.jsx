@@ -19,14 +19,6 @@ const initialState = {
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState: initialState,
-  reducers: {
-    deleteLocalContact(state, action) {
-      const index = state.contactsList.findIndex(
-        contact => contact.id === action.payload
-      );
-      state.contactsList.splice(index, 1);
-    },
-  },
   extraReducers: {
     [fetchContacts.pending]: handlePending,
     [fetchContacts.fulfilled](state, action) {
@@ -49,9 +41,6 @@ const contactsSlice = createSlice({
       const index = state.contactsList.findIndex(
         contact => contact.id === action.payload.id
       );
-      console.log('action.payload:', action.payload);
-      console.log('action.payload.id:', action.payload.id);
-      console.log(index);
       state.contactsList.splice(index, 1);
     },
     [deleteContact.rejected]: handleRejected,
@@ -61,31 +50,3 @@ const contactsSlice = createSlice({
 export const contactsReducer = contactsSlice.reducer;
 
 export const { deleteLocalContact } = contactsSlice.actions;
-
-// reducers: {
-//   addContact: {
-//     reducer(state, { payload }) {
-//       state.contactsList.push(payload);
-//       // Мутирование
-//       // return {
-//       //   ...state,
-//       //   contactsList: [...state.contactsList, payload],
-//       // };
-//     },
-//     prepare(name, number) {
-//       return {
-//         payload: {
-//           name,
-//           number,
-//           id: nanoid(5),
-//         },
-//       };
-//     },
-//   },
-//   deleteContact(state, action) {
-//     const index = state.contactsList.findIndex(
-//       contact => contact.id === action.payload
-//     );
-//     state.contactsList.splice(index, 1);
-//   },
-// },

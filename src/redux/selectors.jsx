@@ -11,7 +11,6 @@ export const selectError = state => state.contacts.error;
 export const selectfilteredContacts = createSelector(
   [selectContacts, selectFilter],
   (contacts, filter) => {
-    console.log('UPDATE');
     const normilezedFilter = filter.toLowerCase();
     return contacts.filter(contact =>
       contact.name.toLowerCase().includes(normilezedFilter)
