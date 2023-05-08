@@ -48,5 +48,3 @@ const contactsSlice = createSlice({
 });
 
 export const contactsReducer = contactsSlice.reducer;
-
-export const { deleteLocalContact } = contactsSlice.actions;
